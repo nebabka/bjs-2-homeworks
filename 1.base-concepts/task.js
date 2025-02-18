@@ -3,7 +3,7 @@ function solveEquation(a, b, c) {
   let d = b * b - 4 * a * c;
 
   if (d < 0) {
-  return [d];
+  return [];
 } else if ( d === 0) {
   let x = -b / (2 * a);
   return [x];
@@ -13,9 +13,6 @@ function solveEquation(a, b, c) {
   return [x1, x2];
 }
 }
-
-
-
 
 function calculateTotalMortgage(percent, contribution, amount, countMonths) {
   let P = (percent / 100) / 12;
