@@ -13,10 +13,6 @@ class PrintEditionItem {
       }
     }
   
-    get state() {
-      return this._state;
-    }
-  
     set state(newState) {
       if (newState < 0) {
         this._state = 0;
@@ -26,4 +22,8 @@ class PrintEditionItem {
         this._state = newState;
       }
     }
+
+    get state() {
+        return this._state;
+      }
   }
