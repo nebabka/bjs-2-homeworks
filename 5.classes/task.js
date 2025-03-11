@@ -8,7 +8,9 @@ class PrintEditionItem {
   }
 
   fix() {
-    this._state = Math.min(100, this._state * 1.5);
+    if (this._state > 0 && this._state < 100) { 
+      this._state = Math.min(100, this._state * 1.5); 
+    }
   }
 
   get state() {
