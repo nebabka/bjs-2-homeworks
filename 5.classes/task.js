@@ -132,3 +132,44 @@ issuedBook.state = 20;
 library.addBook(issuedBook);
 
 console.log("Количество книг после возвращения: " + library.books.length);
+
+// Задани №3
+
+class Student {
+    constructor(name) {
+      this.name = name;
+      this.marks = {};
+    }
+  
+    addMark(mark, subject) {
+      if (mark >= 2 && mark <= 5) {
+        if (!this.marks[subject]) {
+          this.marks[subject] = [];
+        }
+        this.marks[subject].push(mark);
+      }
+    }
+  
+    getAverageBySubject(subject) {
+      if (!this.marks[subject]) {
+        return 0;
+      }
+  
+      const sum = this.marks[subject].reduce((acc, mark) => acc + mark, 0);
+      return sum / this.marks[subject].length;
+    }
+  
+    getAverage() {
+      const subjects = Object.keys(this.marks);
+  
+      if (subjects.length === 0) {
+        return 0;
+      }
+  
+      const totalAverage = subjects.reduce((acc, subject) => {
+        return acc + this.getAverageBySubject(subject);
+      }, 0);
+  
+      return totalAverage / subjects.length;
+    }
+  }
