@@ -1,8 +1,10 @@
 class PrintEditionItem {
-    constructor(name, releaseDate, pagesCount, _state = 100, type = null) {
+    constructor(name, releaseDate, pagesCount, _state, type) {
       this.name = name;
       this.releaseDate = releaseDate;
       this.pagesCount = pagesCount;
+      this._state = 100;
+      this.type = null;
     }
   
     fix() {
