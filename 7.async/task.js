@@ -5,24 +5,20 @@ class AlarmClock {
   }
 
   addClock(time, callback) {
-    if (time && callback){
-
-      if (this.alarmCollection.length > 0) {
-        for (let i = 1; i < this.alarmCollection.length; i=i+1) {
-          if (this.alarmCollection[i-1].time === time) {
-            console.warn('Уже присутствует звонок на это же время');
-          }
-        }
-      }
-      this.alarmCollection.push({time:time, callback:callback, canCall:true});
-
-    } else {
-      throw new Error ('Отсутствуют обязательные аргументы');
+    if (!time || !callback) {
+      throw new Error('Отсутствуют обязательные аргументы');
     }
+
+    if (this.alarmCollection.some(alarm => alarm.time === time)) {
+      console.warn('Уже присутствует звонок на это же время');
+      return;
+    }
+
+    this.alarmCollection.push({time:time, callback:callback, canCall:true});
   }
 
   removeClock(time) {
-    this.alarmCollection = this.alarmCollection.filter((element) => element.time !== time);
+    this.alarmCollection = this.alarmCollection.filter(alarm => alarm.time !== time);
   }
 
   getCurrentFormattedTime() {
@@ -37,17 +33,17 @@ class AlarmClock {
 
   start() {
     if (this.intervalId) {
-
-    } else {
-      this.intervalId = setInterval(() => {
-        this.alarmCollection.forEach((element) => {
-          if (element.time === this.getCurrentFormattedTime() && element.canCall) {
-            element.canCall = false;
-            element.callback();
-          }
-        });
-      }, 1000);
+      return;
     }
+
+    this.intervalId = setInterval(() => {
+      this.alarmCollection.forEach(alarm => {
+        if (alarm.time === this.getCurrentFormattedTime() && alarm.canCall) {
+          alarm.canCall = false;
+          alarm.callback();
+        }
+      });
+    }, 1000);
   }
 
   stop() {
@@ -56,7 +52,7 @@ class AlarmClock {
   }
 
   resetAllCalls(){
-    this.alarmCollection.forEach((element) => element.canCall = true);
+    this.alarmCollection.forEach(alarm => alarm.canCall = true);
   }
 
   clearAlarms(){
